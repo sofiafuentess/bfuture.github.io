@@ -909,7 +909,7 @@ footer .logo{height:34px;opacity:.75}
           <div>🔧 Repuestos y soporte técnico local</div>
         </div>
       </div>
-      <form id="qform" action="https://script.google.com/macros/s/TU_ID_DE_DESPLIEGUE/exec" method="POST" novalidate>
+      <form id="qform" action="https://script.google.com/macros/s/AKfycbxVeIebuZ5qx0MSqwtDI628DdGqYysWUEPRjcsBdgLG4-ueTe4IMoGFK6ThPx1rxDc6fg/exec method="POST" novalidate>
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
         <div class="frow">
           <div class="fld"><label for="nombre">Tu nombre</label><input id="nombre" name="nombre" type="text" placeholder="Nombre y apellido"></div>
@@ -1047,26 +1047,23 @@ qform.addEventListener('submit', function(e){
   const original = btn.textContent;
   btn.disabled = true; btn.textContent = 'Enviando...';
 
-  fetch(qform.action, {
-    method: 'POST',
-    body: new FormData(qform),
-    headers: { 'Accept': 'application/json' }
-  }).then(res => {
-    if(res.ok){
-      fmsg.style.color = '';
-      fmsg.textContent = 'Listo, recibimos tu solicitud. Te contactamos dentro de 48 horas hábiles.';
-      fmsg.classList.add('on');
-      qform.reset();
-      btn.textContent = 'Enviado ✓';
-    } else {
-      throw new Error('submit failed');
-    }
-  }).catch(() => {
-    fmsg.style.color = '#FFC454';
-    fmsg.innerHTML = 'No pudimos enviar el formulario. Escríbenos directo a <a href="mailto:bfuturechile@gmail.com" style="color:inherit;text-decoration:underline">bfuturechile@gmail.com</a>.';
-    fmsg.classList.add('on');
-    btn.disabled = false; btn.textContent = original;
-  });
+    fetch(qform.action, {
+     method: 'POST',
+     mode: 'no-cors',
+     body: new FormData(qform)
+   }).then(() => {
+     fmsg.style.color = '';
+     fmsg.textContent = 'Listo, recibimos tu solicitud. Te contactamos dentro de 48 horas hábiles.';
+     fmsg.classList.add('on');
+     qform.reset();
+     btn.textContent = 'Enviado ✓';
+   }).catch(() => {
+     fmsg.style.color = '#FFC454';
+     fmsg.innerHTML = 'No pudimos enviar el formulario. Escríbenos directo a <a href="mailto:bfuturechile@gmail.com" style="color:inherit;text-decoration:underline">bfuturechile@gmail.com</a>.';
+     fmsg.classList.add('on');
+     btn.disabled = false;
+     btn.textContent = original;
+   });
 });
 </script>
 </body>
